@@ -1,5 +1,5 @@
 /target/
 
 # these files are automatically updated, no need to check them to git
-#src/main/java/it/saadeh/fontawesome/FontAwesome.java
+src/main/java/it/saadeh/fontawesome/FontAwesome.java
 **/VAADIN/
