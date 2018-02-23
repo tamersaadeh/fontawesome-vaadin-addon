@@ -4,10 +4,6 @@
 
 	<modelVersion>4.0.0</modelVersion>
 
-	<prerequisites>
-		<maven>3</maven>
-	</prerequisites>
-
 	<parent>
 		<artifactId>fontawesome-vaadin-root</artifactId>
 		<groupId>it.saadeh.fontawesome</groupId>
@@ -51,6 +47,7 @@
 	</dependencies>
 
 	<build>
+		<sourceDirectory>src/main/java</sourceDirectory>
 		<outputDirectory>${project.build.directory}/${project.build.finalName}/WEB-INF/classes</outputDirectory>
 
 		<plugins>
