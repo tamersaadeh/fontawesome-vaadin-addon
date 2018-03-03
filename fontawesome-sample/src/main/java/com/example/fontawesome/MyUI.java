@@ -7,12 +7,10 @@ import com.vaadin.annotations.VaadinServletConfiguration;
 import com.vaadin.icons.VaadinIcons;
 import com.vaadin.server.VaadinRequest;
 import com.vaadin.server.VaadinServlet;
-import com.vaadin.ui.Label;
-import com.vaadin.ui.TextField;
-import com.vaadin.ui.UI;
-import com.vaadin.ui.VerticalLayout;
+import com.vaadin.ui.*;
+
+import com.vaadin.ui.Button.ClickListener;
 import it.saadeh.fontawesome.FontAwesome;
-import it.saadeh.fontawesome.FontAwesomeLabel;
 
 @Theme("mytheme")
 public class MyUI extends UI {
@@ -23,12 +21,24 @@ public class MyUI extends UI {
 
 		final TextField name = new TextField();
 		name.setCaption("Type your name here:");
+		layout.addComponent(name);
 
-		Label icon = new FontAwesomeLabel(FontAwesome.FILE);
-		layout.addComponents(name, icon);
+		ClickListener e = x -> {
+			layout.addComponent(new Label("Thanks " + name.getValue()
+					+ ", it works!"));
+		};
 
-		Label vIcon = new Label();
-		vIcon.setIcon(VaadinIcons.FILE);
+		Button faButton = new Button("FA File");
+		faButton.addClickListener(e);
+
+		faButton.setIcon(FontAwesome.FILE_S, "FA File");
+		layout.addComponent(faButton);
+
+		Button viButton = new Button("VI File");
+		viButton.addClickListener(e);
+
+		viButton.setIcon(VaadinIcons.FILE, "VI File");
+		layout.addComponent(viButton);
 
 		setContent(layout);
 	}
