@@ -3,8 +3,8 @@ package it.saadeh.fontawesome;
 import com.vaadin.server.FontIcon;
 
 /*
+ * Based on https://github.com/bdunn44/FontAwesome-Vaadin
  * License: UNKONWN
- * See https://github.com/bdunn44/FontAwesome-Vaadin for license
  */
 public enum FontAwesome implements FontIcon {
 	DUMMY_ENUM_CONSTANT("", 0);
@@ -44,6 +44,6 @@ public enum FontAwesome implements FontIcon {
 
 	@Override
 	public String getHtml() {
-		return "<i class=\"v-icon " + clazz + "\"></i>";
+		return "<span class=\"v-icon " + clazz + "\"></i>";
 	}
 }

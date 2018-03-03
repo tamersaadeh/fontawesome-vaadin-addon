@@ -22,7 +22,7 @@ import org.slf4j.LoggerFactory;
 public class GenerateEnum {
 	private static final Logger log = LoggerFactory.getLogger(GenerateEnum.class);
 
-	private static final String VERSION = "5.0.6";
+	private static final String VERSION = "5.0.8";
 
 	private static final String ZIP_SOURCE_URL = "http://use.fontawesome.com/releases/v" + VERSION
 			+ "/fontawesome-free-" + VERSION + ".zip";
@@ -36,7 +36,7 @@ public class GenerateEnum {
 	private static final String FONT_AWESOME_BASE_PATH = "/fontawesome-free-" + VERSION;
 	private static final String META_JSON_PATH = FONT_AWESOME_BASE_PATH + "/advanced-options/metadata/icons.json";
 	private static final String STYLES_PATH = FONT_AWESOME_BASE_PATH + "/web-fonts-with-css";
-	private static final String CSS_PATH = STYLES_PATH + "/css/fontawesome-all.min.css";
+	private static final String CSS_PATH = STYLES_PATH + "/scss";
 	private static final String WEB_FONTS_PATH = STYLES_PATH + "/webfonts";
 
 	private static final String TOKEN = "\tDUMMY_ENUM_CONSTANT(\"\", 0);";
@@ -146,9 +146,9 @@ public class GenerateEnum {
 		FileUtils.deleteDirectory(new File(RESOURCES_DIR));
 
 		File src = new File(base + CSS_PATH);
-		File dst = new File(WEB_CONTENT_DIR + "/css/fontawesome.min.css");
+		File dst = new File(WEB_CONTENT_DIR + "/scss");
 
-		FileUtils.copyFile(src, dst);
+		FileUtils.copyDirectory(src, dst);
 
 		src = new File(base + WEB_FONTS_PATH);
 		dst = new File(WEB_CONTENT_DIR + "/webfonts");
