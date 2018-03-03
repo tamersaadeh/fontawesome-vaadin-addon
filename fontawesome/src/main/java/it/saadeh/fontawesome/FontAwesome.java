@@ -1,11 +1,14 @@
 package it.saadeh.fontawesome;
 
+import com.vaadin.annotations.JavaScript;
 import com.vaadin.server.FontIcon;
 
 /*
  * Based on https://github.com/bdunn44/FontAwesome-Vaadin
  * License: UNKONWN
  */
+
+@JavaScript("https://use.fontawesome.com/releases/v5.0.8/js/all.js")
 public enum FontAwesome implements FontIcon {
 	DUMMY_ENUM_CONSTANT("", 0);
 

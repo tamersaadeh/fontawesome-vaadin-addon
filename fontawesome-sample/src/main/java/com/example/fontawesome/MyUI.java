@@ -2,6 +2,7 @@ package com.example.fontawesome;
 
 import javax.servlet.annotation.WebServlet;
 
+import com.vaadin.annotations.JavaScript;
 import com.vaadin.annotations.Theme;
 import com.vaadin.annotations.VaadinServletConfiguration;
 import com.vaadin.icons.VaadinIcons;
@@ -12,7 +13,7 @@ import com.vaadin.ui.*;
 import com.vaadin.ui.Button.ClickListener;
 import it.saadeh.fontawesome.FontAwesome;
 
-@Theme("mytheme")
+@Theme("valo")
 public class MyUI extends UI {
 
 	@Override
