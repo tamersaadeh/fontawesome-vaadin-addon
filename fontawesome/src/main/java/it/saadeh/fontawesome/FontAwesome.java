@@ -8,7 +8,6 @@ import com.vaadin.server.FontIcon;
  * License: UNKONWN
  */
 
-@JavaScript("https://use.fontawesome.com/releases/v5.0.8/js/all.js")
 public enum FontAwesome implements FontIcon {
 	DUMMY_ENUM_CONSTANT("", 0);
 
