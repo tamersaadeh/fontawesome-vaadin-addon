@@ -5,19 +5,22 @@ import javax.servlet.annotation.WebServlet;
 import com.vaadin.annotations.JavaScript;
 import com.vaadin.annotations.Theme;
 import com.vaadin.annotations.VaadinServletConfiguration;
-import com.vaadin.icons.VaadinIcons;
 import com.vaadin.server.VaadinRequest;
 import com.vaadin.server.VaadinServlet;
 import com.vaadin.ui.*;
-
 import com.vaadin.ui.Button.ClickListener;
 import it.saadeh.fontawesome.FontAwesome;
 
+//@StyleSheet("../../VAADIN/addons/fontawesome/css/fa-svg-with-js.css")
+@JavaScript("../../VAADIN/addons/fontawesome/js/fontawesome-all.js")
 @Theme("valo")
 public class MyUI extends UI {
 
 	@Override
 	protected void init(VaadinRequest vaadinRequest) {
+		com.vaadin.ui.JavaScript js = new com.vaadin.ui.JavaScript();
+		js.execute("FontAwesomeConfig = { autoAddCss: false }");
+
 		final VerticalLayout layout = new VerticalLayout();
 
 		final TextField name = new TextField();
@@ -32,14 +35,9 @@ public class MyUI extends UI {
 		Button faButton = new Button("FA File");
 		faButton.addClickListener(e);
 
-		faButton.setIcon(FontAwesome.FILE_S, "FA File");
-		layout.addComponent(faButton);
-
-		Button viButton = new Button("VI File");
-		viButton.addClickListener(e);
-
-		viButton.setIcon(VaadinIcons.FILE, "VI File");
-		layout.addComponent(viButton);
+		Label fa = new FontAwesomeLabel(FontAwesome.FILE_S);
+		faButton.setIcon(FontAwesome.FILE_S);
+		layout.addComponents(faButton, fa);
 
 		setContent(layout);
 	}
@@ -49,3 +47,4 @@ public class MyUI extends UI {
 	public static class MyUIServlet extends VaadinServlet {
 	}
 }
+

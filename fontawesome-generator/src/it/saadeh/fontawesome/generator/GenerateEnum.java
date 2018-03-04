@@ -35,11 +35,11 @@ public class GenerateEnum {
 
 	private static final String FONT_AWESOME_BASE_PATH = "/fontawesome-free-" + VERSION;
 	private static final String META_JSON_PATH = FONT_AWESOME_BASE_PATH + "/advanced-options/metadata/icons.json";
-	private static final String STYLES_PATH = FONT_AWESOME_BASE_PATH + "/web-fonts-with-css";
-	private static final String CSS_PATH = STYLES_PATH + "/scss";
-	private static final String WEB_FONTS_PATH = STYLES_PATH + "/webfonts";
+	private static final String SVG_JS_PATH = FONT_AWESOME_BASE_PATH + "/svg-with-js";
+	private static final String CSS_PATH = SVG_JS_PATH + "/css";
+	private static final String JAVASCRIPT_PATH = SVG_JS_PATH + "/js";
 
-	private static final String TOKEN = "\tDUMMY_ENUM_CONSTANT(\"\", 0);";
+	private static final String TOKEN = "\tDUMMY_ENUM_CONSTANT(\"\");";
 
 	private final ArrayList<String> enumTypes = new ArrayList<>();
 	private int enumSize = 0;
@@ -109,12 +109,12 @@ public class GenerateEnum {
 			for (JsonNode style : obj.get("styles")) {
 				String styleStr = style.asText();
 				Style x = Style.valueOf(styleStr.toUpperCase());
-				emit(name, code, x);
+				emit(name, x);
 			}
 		}
 	}
 
-	private void emit(String name, int code, Style style) {
+	private void emit(String style,String name, Style style) {
 		String emittedName = name;
 		if (Character.isDigit(emittedName.charAt(0)))
 			emittedName = "_" + emittedName;
@@ -126,7 +126,7 @@ public class GenerateEnum {
 		if (style == Style.SOLID) {
 			emittedEnum = emittedName.replaceAll("-", "_").toUpperCase();
 			String toEmit = "\n\t/**\n\t * Use {@link #" + emittedEnum + "_S " + emittedEnum + "_S} variant instead\n\t */\n\t@Deprecated\n\t"
-					+ emittedEnum + "(\"" + emittedClass + "\", 0x" + Integer.toHexString(code) + ")";
+					+ emittedEnum + "(\"" + emittedClass + "\")";
 
 			log.debug(toEmit);
 			enumTypes.add(toEmit);
@@ -134,7 +134,7 @@ public class GenerateEnum {
 		}
 		emittedEnum = emittedName.replaceAll("-", "_").toUpperCase() + "_" + style.getClazz().toUpperCase().charAt(2);
 
-		String toEmit = "\t" + emittedEnum + "(\"" + emittedClass + "\", 0x" + Integer.toHexString(code) + ")";
+		String toEmit = "\t" + emittedEnum + "(\"" + emittedClass + "\")";
 
 		log.debug(toEmit);
 		enumTypes.add(toEmit);
@@ -146,12 +146,12 @@ public class GenerateEnum {
 		FileUtils.deleteDirectory(new File(RESOURCES_DIR));
 
 		File src = new File(base + CSS_PATH);
-		File dst = new File(WEB_CONTENT_DIR + "/scss");
+		File dst = new File(WEB_CONTENT_DIR + "/css");
 
 		FileUtils.copyDirectory(src, dst);
 
-		src = new File(base + WEB_FONTS_PATH);
-		dst = new File(WEB_CONTENT_DIR + "/webfonts");
+		src = new File(base + JAVASCRIPT_PATH);
+		dst = new File(WEB_CONTENT_DIR + "/js");
 
 		FileUtils.copyDirectory(src, dst);
 
@@ -189,17 +189,5 @@ public class GenerateEnum {
 
 	}
 
-	private enum Style {
-		SOLID("fas"), REGULAR("far"), LIGHT("fal"), BRANDS("fab");
 
-		private final String clazz;
-
-		Style(String clazz) {
-			this.clazz = clazz;
-		}
-
-		String getClazz() {
-			return clazz;
-		}
-	}
 }
