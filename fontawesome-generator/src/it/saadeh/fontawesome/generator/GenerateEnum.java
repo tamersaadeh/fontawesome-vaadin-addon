@@ -39,7 +39,7 @@ public class GenerateEnum {
 	private static final String CSS_PATH = SVG_JS_PATH + "/css";
 	private static final String JAVASCRIPT_PATH = SVG_JS_PATH + "/js";
 
-	private static final String TOKEN = "\tDUMMY_ENUM_CONSTANT(\"\");";
+	private static final String TOKEN = "\tDUMMY_ENUM_CONSTANT(IconType.SOLID, \"\");";
 
 	private final ArrayList<String> enumTypes = new ArrayList<>();
 	private int enumSize = 0;
@@ -103,38 +103,22 @@ public class GenerateEnum {
 			String name = fieldNames.next();
 			JsonNode obj = node.get(name);
 
-			String codeStr = obj.get("unicode").asText();
-			int code = Integer.parseInt(codeStr, 16);
-
-			for (JsonNode style : obj.get("styles")) {
-				String styleStr = style.asText();
-				Style x = Style.valueOf(styleStr.toUpperCase());
-				emit(name, x);
-			}
+			for (JsonNode style : obj.get("styles"))
+				emit(name, style.asText());
 		}
 	}
 
-	private void emit(String style,String name, Style style) {
+	private void emit(String iconType, String name) {
 		String emittedName = name;
 		if (Character.isDigit(emittedName.charAt(0)))
 			emittedName = "_" + emittedName;
-		String emittedClass = style.getClazz() + " fa-" + name.toLowerCase();
+		String emittedIconType = "IconType." + iconType.toUpperCase();
 
-		// this provides compatibility with old Vaadin FontAwesome Enum, but adds the @Deprecated annotation to it to it
-		// TODO: use the table on https://fontawesome.com/how-to-use/upgrading-from-4 for better migration handling
-		String emittedEnum;
-		if (style == Style.SOLID) {
-			emittedEnum = emittedName.replaceAll("-", "_").toUpperCase();
-			String toEmit = "\n\t/**\n\t * Use {@link #" + emittedEnum + "_S " + emittedEnum + "_S} variant instead\n\t */\n\t@Deprecated\n\t"
-					+ emittedEnum + "(\"" + emittedClass + "\")";
+		String emittedIcon = "fa-" + name.toLowerCase();
 
-			log.debug(toEmit);
-			enumTypes.add(toEmit);
-			enumSize += toEmit.length();
-		}
-		emittedEnum = emittedName.replaceAll("-", "_").toUpperCase() + "_" + style.getClazz().toUpperCase().charAt(2);
+		String emittedEnum = emittedName.replaceAll("-", "_").toUpperCase() + "_" + iconType.toUpperCase().charAt(0);
 
-		String toEmit = "\t" + emittedEnum + "(\"" + emittedClass + "\")";
+		String toEmit = "\t" + emittedEnum + "(\"" + emittedIconType + ", " + emittedIcon + "\")";
 
 		log.debug(toEmit);
 		enumTypes.add(toEmit);
@@ -186,8 +170,6 @@ public class GenerateEnum {
 			bw.write(result);
 			bw.flush();
 		}
-
 	}
-
 
 }

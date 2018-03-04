@@ -1,18 +1,55 @@
 package it.saadeh.fontawesome;
 
+import java.util.ArrayList;
+
 interface FontAwesomeCore {
 
-//	default String getHtml(String clazz) {
-//		return "<i class=\"v-icon " + clazz + "\"></i>";
-//	}
-
 	String getClazz();
+
+	void add(PowerTransform transform);
+
+	void add(FontAwesomeCore mask);
 
 	default String apply(String clazz, Style s) {
 		return clazz + s;
 	}
 
-	default String apply(PowerTransform... transforms) {
+	default String serialise(String transform) {
+		return serialise(transform, null);
+	}
+
+	default String serialise() {
+		return serialise(null, null);
+	}
+
+	default String serialise(String transform, String mask) {
+		StringBuilder sb = new StringBuilder();
+		sb.append("<i class\"");
+
+		sb.append(getClazz());
+		sb.append('\"');
+
+
+		if (transform != null) {
+			sb.append(" ");
+			sb.append(transform);
+		}
+
+		if (mask != null) {
+			sb.append(" ");
+			sb.append(mask);
+		}
+
+		sb.append("/>");
+
+		return sb.toString();
+	}
+
+	default String applyTransform(PowerTransform transform) {
+		return "data-fa-transform=\"" + transform + "\"";
+	}
+
+	default String applyTransforms(ArrayList<PowerTransform> transforms) {
 		StringBuilder sb = new StringBuilder();
 
 		sb.append("data-fa-transform=\"");
@@ -27,7 +64,10 @@ interface FontAwesomeCore {
 		return sb.toString();
 	}
 
-	default String applyMask(FontAwesomeCore... icons) {
+	default String applyMask(FontAwesomeCore icon) {
+		return "data-fa-mask=\"" + icon.getClazz() + "\"";
+	}
+	default String applyMasks(ArrayList<FontAwesomeCore> icons) {
 		StringBuilder sb = new StringBuilder();
 
 		sb.append("data-fa-mask=\"");
@@ -42,7 +82,7 @@ interface FontAwesomeCore {
 		return sb.toString();
 	}
 
-	enum IconType {
+	public enum IconType {
 		SOLID("fas"), REGULAR("far"), LIGHT("fal"), BRANDS("fab");
 
 		private final String type;
@@ -57,7 +97,7 @@ interface FontAwesomeCore {
 		}
 	}
 
-	enum Style {
+	public enum Style {
 		XSMALL("fa-xs"), SMALL("fa-sm"), LARGE("fa-lg"), TIMES_2("fa-2x"),
 		TIMES_3("fa-3x"), TIMES_4("fa-4x"), TIMES_5("fa-5x"), TIMES_6("fa-6x"),
 		TIMES_7("fa-7x"), TIMES_8("fa-8x"), TIMES_9("fa-9x"), TIMES_10("fa-10x"),
@@ -76,7 +116,7 @@ interface FontAwesomeCore {
 		}
 	}
 
-	enum PowerTransform {
+	public enum PowerTransform {
 		SHRINK("shrink-", TransformArg.DOUBLE), GROW("grow-", TransformArg.DOUBLE), UP("up-", TransformArg.DOUBLE),
 		DOWN("down-", TransformArg.DOUBLE), LEFT("left-", TransformArg.DOUBLE), RIGHT("right-", TransformArg.DOUBLE),
 		ROTATE("rotate-", TransformArg.INT), FLIP("flip-", TransformArg.VHCHAR);
