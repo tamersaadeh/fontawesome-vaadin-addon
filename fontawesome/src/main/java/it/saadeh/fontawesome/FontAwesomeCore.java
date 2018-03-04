@@ -6,9 +6,13 @@ interface FontAwesomeCore {
 
 	String getClazz();
 
+	void setClazz(String clazz);
+
 	void add(PowerTransform transform);
 
 	void add(FontAwesomeCore mask);
+
+	void add(Style style);
 
 	default String apply(String clazz, Style s) {
 		return clazz + s;
@@ -28,7 +32,6 @@ interface FontAwesomeCore {
 
 		sb.append(getClazz());
 		sb.append('\"');
-
 
 		if (transform != null) {
 			sb.append(" ");
@@ -67,6 +70,7 @@ interface FontAwesomeCore {
 	default String applyMask(FontAwesomeCore icon) {
 		return "data-fa-mask=\"" + icon.getClazz() + "\"";
 	}
+
 	default String applyMasks(ArrayList<FontAwesomeCore> icons) {
 		StringBuilder sb = new StringBuilder();
 
@@ -81,6 +85,22 @@ interface FontAwesomeCore {
 
 		return sb.toString();
 	}
+
+	default void applyStyle(Style style) {
+		setClazz(getClazz() + " " + style);
+	}
+
+	default void applyStyles(ArrayList<Style> styles) {
+		StringBuilder sb = new StringBuilder(getClazz());
+
+		for (Style style : styles) {
+			sb.append(" ");
+			sb.append(style);
+		}
+
+		setClazz(sb.toString());
+	}
+
 
 	public enum IconType {
 		SOLID("fas"), REGULAR("far"), LIGHT("fal"), BRANDS("fab");

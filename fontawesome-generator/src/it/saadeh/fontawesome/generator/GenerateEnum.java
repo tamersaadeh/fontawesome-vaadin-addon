@@ -104,7 +104,7 @@ public class GenerateEnum {
 			JsonNode obj = node.get(name);
 
 			for (JsonNode style : obj.get("styles"))
-				emit(name, style.asText());
+				emit(style.asText(), name);
 		}
 	}
 
@@ -112,13 +112,15 @@ public class GenerateEnum {
 		String emittedName = name;
 		if (Character.isDigit(emittedName.charAt(0)))
 			emittedName = "_" + emittedName;
+
 		String emittedIconType = "IconType." + iconType.toUpperCase();
 
 		String emittedIcon = "fa-" + name.toLowerCase();
 
-		String emittedEnum = emittedName.replaceAll("-", "_").toUpperCase() + "_" + iconType.toUpperCase().charAt(0);
+		String emittedEnum = emittedName.replaceAll("-", "_").toUpperCase()
+				+ "_" + iconType.toUpperCase().charAt(0);
 
-		String toEmit = "\t" + emittedEnum + "(\"" + emittedIconType + ", " + emittedIcon + "\")";
+		String toEmit = "\t" + emittedEnum + "(" + emittedIconType + ", \"" + emittedIcon + "\")";
 
 		log.debug(toEmit);
 		enumTypes.add(toEmit);
