@@ -12,7 +12,7 @@ public enum FontAwesome implements FontAwesomeCore {
 	private ArrayList<FontAwesomeCore> masks = new ArrayList<>();
 
 	FontAwesome(IconType type, String icon) {
-		this.icon = icon;
+//		this.icon = icon;
 		clazz = type + " " + icon;
 	}
 
