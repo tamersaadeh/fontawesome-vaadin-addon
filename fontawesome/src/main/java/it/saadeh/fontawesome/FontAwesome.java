@@ -42,17 +42,20 @@ public enum FontAwesome implements FontAwesomeCore {
 	}
 
 	@Override
-	public void add(PowerTransform transform) {
+	public FontAwesomeCore add(PowerTransform transform) {
 		transforms.add(transform);
+		return this;
 	}
 
 	@Override
-	public void add(FontAwesomeCore mask) {
+	public FontAwesomeCore add(FontAwesomeCore mask) {
 		masks.add(mask);
+		return this;
 	}
 
 	@Override
-	public void add(Style style) {
+	public FontAwesomeCore add(Style style) {
 		styles.add(style);
+		return this;
 	}
 }

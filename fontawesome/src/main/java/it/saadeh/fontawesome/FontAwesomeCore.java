@@ -8,11 +8,11 @@ interface FontAwesomeCore {
 
 	void setClazz(String clazz);
 
-	void add(PowerTransform transform);
+	FontAwesomeCore add(PowerTransform transform);
 
-	void add(FontAwesomeCore mask);
+	FontAwesomeCore add(FontAwesomeCore mask);
 
-	void add(Style style);
+	FontAwesomeCore add(Style style);
 
 	default String apply(String clazz, Style s) {
 		return clazz + s;
