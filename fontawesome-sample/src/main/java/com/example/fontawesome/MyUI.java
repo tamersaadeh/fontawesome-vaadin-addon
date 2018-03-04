@@ -11,20 +11,19 @@ import com.vaadin.ui.TextField;
 import com.vaadin.ui.UI;
 import com.vaadin.ui.VerticalLayout;
 import it.saadeh.fontawesome.FontAwesome;
-import it.saadeh.fontawesome.FontAwesomeCore.Style;
+import it.saadeh.fontawesome.Style;
 import it.saadeh.fontawesome.FontAwesomeItem;
 import it.saadeh.fontawesome.FontAwesomeList;
 import it.saadeh.fontawesome.FontAwesomeList.ListType;
 
-//@StyleSheet("../../VAADIN/addons/fontawesome/css/fa-svg-with-js.css")
 @JavaScript("../../VAADIN/addons/fontawesome/js/fontawesome-all.js")
 @Theme("valo")
 public class MyUI extends UI {
 
 	@Override
 	protected void init(VaadinRequest vaadinRequest) {
-		com.vaadin.ui.JavaScript js = new com.vaadin.ui.JavaScript();
-		js.execute("FontAwesomeConfig = { autoAddCss: false }");
+//		com.vaadin.ui.JavaScript js = new com.vaadin.ui.JavaScript();
+//		js.execute("FontAwesomeConfig = { autoAddCss: false }");
 
 		final VerticalLayout layout = new VerticalLayout();
 
