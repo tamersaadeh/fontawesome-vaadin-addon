@@ -7,9 +7,14 @@ import com.vaadin.annotations.Theme;
 import com.vaadin.annotations.VaadinServletConfiguration;
 import com.vaadin.server.VaadinRequest;
 import com.vaadin.server.VaadinServlet;
-import com.vaadin.ui.*;
-import com.vaadin.ui.Button.ClickListener;
+import com.vaadin.ui.TextField;
+import com.vaadin.ui.UI;
+import com.vaadin.ui.VerticalLayout;
 import it.saadeh.fontawesome.FontAwesome;
+import it.saadeh.fontawesome.FontAwesomeCore.Style;
+import it.saadeh.fontawesome.FontAwesomeItem;
+import it.saadeh.fontawesome.FontAwesomeList;
+import it.saadeh.fontawesome.FontAwesomeList.ListType;
 
 //@StyleSheet("../../VAADIN/addons/fontawesome/css/fa-svg-with-js.css")
 @JavaScript("../../VAADIN/addons/fontawesome/js/fontawesome-all.js")
@@ -27,17 +32,15 @@ public class MyUI extends UI {
 		name.setCaption("Type your name here:");
 		layout.addComponent(name);
 
-		ClickListener e = x -> {
-			layout.addComponent(new Label("Thanks " + name.getValue()
-					+ ", it works!"));
-		};
+		FontAwesomeList list = new FontAwesomeList(ListType.ORDERED);
 
-		Button faButton = new Button("FA File");
-		faButton.addClickListener(e);
+		FontAwesomeItem item1 = new FontAwesomeItem(FontAwesome.ADDRESS_BOOK_R.add(Style.LARGE), "a regular address book");
+		FontAwesomeItem item2 = new FontAwesomeItem(FontAwesome.ADDRESS_BOOK_S.add(Style.LARGE), "a solid address book");
 
-		Label fa = new FontAwesomeLabel(FontAwesome.FILE_S);
-		faButton.setIcon(FontAwesome.FILE_S);
-		layout.addComponents(faButton, fa);
+		list.add(item1);
+		list.add(item2);
+
+		layout.addComponents(list);
 
 		setContent(layout);
 	}
